@@ -16,13 +16,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.ex1.ui.theme.Exercise1Theme
+import com.example.ex1.ui.theme.BasicsCodelabTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            Exercise1Theme {
+            BasicsCodelabTheme {
                 MyApp()
             }
         }
@@ -63,7 +63,7 @@ fun OnboardingScreen(onContinueClicked: () -> Unit) {
 @Preview(showBackground = true, widthDp = 320, heightDp = 320)
 @Composable
 fun OnboardingPreview() {
-    Exercise1Theme {
+    BasicsCodelabTheme {
         OnboardingScreen {}
     }
 }
@@ -112,7 +112,7 @@ fun Greeting(name: String) {
 @Preview(showBackground = true, widthDp = 320)
 @Composable
 fun DefaultPreview() {
-    Exercise1Theme {
+    BasicsCodelabTheme {
         MyApp()
     }
 }
