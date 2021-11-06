@@ -19,13 +19,19 @@ class MainActivity : ComponentActivity() {
         setContent {
             Exercise1Theme {
                 // A surface container using the 'background' color from the theme
-                Surface(color = MaterialTheme.colors.primary) {
-                    Greeting("Android")
-                }
+                MyApp()
             }
         }
     }
 }
+
+@Composable
+private fun MyApp() {
+    Surface(color = MaterialTheme.colors.primary) {
+        Greeting("Android")
+    }
+}
+
 
 @Composable
 fun Greeting(name: String) {
