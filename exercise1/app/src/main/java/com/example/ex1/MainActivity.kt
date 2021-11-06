@@ -25,7 +25,41 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 private fun MyApp() {
-    Greetings()
+    var shouldShowOnboarding by remember { mutableStateOf(true) }
+
+    if (shouldShowOnboarding) {
+        OnboardingScreen { shouldShowOnboarding = false }
+    } else {
+        Greetings()
+    }
+}
+
+@Composable
+fun OnboardingScreen(onContinueClicked: () -> Unit) {
+
+    Surface {
+        Column(
+            modifier = Modifier.fillMaxSize(),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Text("Welcome to the Basics Codelab!")
+            Button(
+                modifier = Modifier.padding(vertical = 24.dp),
+                onClick = onContinueClicked
+            ) {
+                Text("Continue")
+            }
+        }
+    }
+}
+
+@Preview(showBackground = true, widthDp = 320, heightDp = 320)
+@Composable
+fun OnboardingPreview() {
+    Exercise1Theme {
+        OnboardingScreen {}
+    }
 }
 
 @Composable
@@ -68,35 +102,5 @@ fun Greeting(name: String) {
 fun DefaultPreview() {
     Exercise1Theme {
         MyApp()
-    }
-}
-
-@Composable
-fun OnboardingScreen() {
-    // TODO: This state should be hoisted
-    var shouldShowOnboarding by remember { mutableStateOf(true) }
-
-    Surface {
-        Column(
-            modifier = Modifier.fillMaxSize(),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Text("Welcome to the Basics Codelab!")
-            Button(
-                modifier = Modifier.padding(vertical = 24.dp),
-                onClick = { shouldShowOnboarding = false }
-            ) {
-                Text("Continue")
-            }
-        }
-    }
-}
-
-@Preview(showBackground = true, widthDp = 320, heightDp = 320)
-@Composable
-fun OnboardingPreview() {
-    Exercise1Theme {
-        OnboardingScreen()
     }
 }
