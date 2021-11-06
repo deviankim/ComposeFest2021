@@ -24,12 +24,18 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-private fun MyApp(names: List<String> = listOf("World", "Compose")) {
-    Column {
-        names.map { Greeting(name = it) }
-    }
+private fun MyApp() {
+    Greetings()
 }
 
+@Composable
+private fun Greetings(names: List<String> = listOf("World", "Compose")) {
+    Column(modifier = Modifier.padding(vertical = 4.dp)) {
+        for (name in names) {
+            Greeting(name = name)
+        }
+    }
+}
 
 @Composable
 fun Greeting(name: String) {
@@ -40,9 +46,11 @@ fun Greeting(name: String) {
         modifier = Modifier.padding(vertical = 4.dp, horizontal = 8.dp)
     ) {
         Row(modifier = Modifier.padding(24.dp)) {
-            Column(modifier = Modifier
-                .weight(1f)
-                .padding(extraPadding)) {
+            Column(
+                modifier = Modifier
+                    .weight(1f)
+                    .padding(extraPadding)
+            ) {
                 Text("Hello, ")
                 Text(name)
             }
