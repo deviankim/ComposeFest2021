@@ -26,22 +26,24 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-private fun MyApp() {
-    Surface(color = MaterialTheme.colors.primary) {
-        Greeting("Android")
+private fun MyApp(names: List<String> = listOf("World", "Compose")) {
+    Column {
+        names.map { Greeting(name = it) }
     }
 }
 
 
 @Composable
 fun Greeting(name: String) {
-    Column(modifier = Modifier.padding(24.dp)) {
-        Text("Hello, ")
-        Text(name)
+    Surface(color = MaterialTheme.colors.primary) {
+        Column(modifier = Modifier.padding(24.dp)) {
+            Text("Hello, ")
+            Text(name)
+        }
     }
 }
 
-@Preview(showBackground = true, name = "Text preview")
+@Preview(showBackground = true, widthDp = 320)
 @Composable
 fun DefaultPreview() {
     Exercise1Theme {
