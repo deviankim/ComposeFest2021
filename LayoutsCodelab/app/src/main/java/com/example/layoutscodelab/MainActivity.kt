@@ -221,7 +221,7 @@ fun PhotographerCardPreview() {
 
 @Preview
 @Composable
-fun LayoutsCodelabPreview() {
+private fun LayoutsCodelabPreview() {
     LayoutsCodelabTheme {
         LayoutsCodelab()
     }
