@@ -20,8 +20,8 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.layoutscodelab.ui.theme.LayoutsCodelabTheme
 import coil.compose.rememberImagePainter
+import com.example.layoutscodelab.ui.theme.LayoutsCodelabTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,7 +51,10 @@ fun LayoutsCodelab() {
             )
         }
     ) { innerPadding ->
-        BodyContent(Modifier.padding(innerPadding).padding(8.dp))
+        BodyContent(
+            Modifier
+                .padding(innerPadding)
+                .padding(8.dp))
     }
 }
 
@@ -112,8 +115,8 @@ fun ImageList() {
     val scrollState = rememberLazyListState()
 
     LazyColumn(state = scrollState) {
-        items(100) {
-            ImageListItem(it)
+        items(100) { index ->
+            ImageListItem(index)
         }
     }
 }
