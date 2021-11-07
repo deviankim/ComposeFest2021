@@ -2,19 +2,21 @@ package com.example.layoutscodelab
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Stable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.Layout
+import androidx.compose.ui.layout.*
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.*
 import com.example.layoutscodelab.ui.theme.LayoutsCodelabTheme
 
 @Composable
@@ -110,11 +112,56 @@ fun StaggeredGrid(
     }
 }
 
+@Stable
+fun Modifier.padding(all: Dp) =
+    this.then(
+        PaddingModifier(start = all, top = all, end = all, bottom = all, rtlAware = true)
+    )
+
+// Implementation detail
+private class PaddingModifier(
+    val start: Dp = 0.dp,
+    val top: Dp = 0.dp,
+    val end: Dp = 0.dp,
+    val bottom: Dp = 0.dp,
+    val rtlAware: Boolean,
+) : LayoutModifier {
+
+    override fun MeasureScope.measure(
+        measurable: Measurable,
+        constraints: Constraints
+    ): MeasureResult {
+
+        val horizontal = start.roundToPx() + end.roundToPx()
+        val vertical = top.roundToPx() + bottom.roundToPx()
+
+        val placeable = measurable.measure(constraints.offset(-horizontal, -vertical))
+
+        val width = constraints.constrainWidth(placeable.width + horizontal)
+        val height = constraints.constrainHeight(placeable.height + vertical)
+        return layout(width, height) {
+            if (rtlAware) {
+                placeable.placeRelative(start.roundToPx(), top.roundToPx())
+            } else {
+                placeable.place(start.roundToPx(), top.roundToPx())
+            }
+        }
+    }
+}
+
 @Composable
-private fun BodyContent(modifier: Modifier = Modifier) {
-    StaggeredGrid(modifier = modifier) {
-        for (topic in topics) {
-            Chip(modifier = Modifier.padding(8.dp), text = topic)
+fun LayoutBodyContent(modifier: Modifier = Modifier) {
+    Row(
+        modifier = modifier
+            .background(color = Color.LightGray)
+            .size(200.dp)
+            .padding(16.dp)
+            .horizontalScroll(rememberScrollState())
+    ) {
+        StaggeredGrid {
+            for (topic in topics) {
+                Chip(modifier = Modifier.padding(8.dp), text = topic)
+            }
         }
     }
 }
@@ -123,7 +170,7 @@ private fun BodyContent(modifier: Modifier = Modifier) {
 @Composable
 private fun LayoutsCodelabPreview() {
     LayoutsCodelabTheme {
-        BodyContent()
+        LayoutBodyContent()
     }
 }
 
