@@ -8,9 +8,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 
 private val DarkColorPalette = darkColors(
-    primary = Purple200,
-    primaryVariant = Purple700,
-    secondary = Teal200
+    surface = Blue,
+    onSurface = Navy,
+    primary = Navy,
+    onPrimary = Chartreuse
 )
 
 private val LightColorPalette = lightColors(
@@ -18,32 +19,24 @@ private val LightColorPalette = lightColors(
     onSurface = Color.White,
     primary = LightBlue,
     onPrimary = Navy,
-//    primaryVariant = Purple700,
-//    secondary = Teal200
-
-    /* Other default colors to override
-    background = Color.White,
-    surface = Color.White,
-    onPrimary = Color.White,
-    onSecondary = Color.Black,
-    onBackground = Color.Black,
-    onSurface = Color.Black,
-    */
 )
 
 
 @Composable
-fun BasicsCodelabTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable() () -> Unit) {
-    val colors = if (darkTheme) {
-        DarkColorPalette
-    } else {
-        LightColorPalette
-    }
-
+fun BasicsCodelabTheme(
+    darkTheme: Boolean = isSystemInDarkTheme(),
+    content: @Composable() () -> Unit
+) {
     MaterialTheme(
-        colors = colors,
+        colors = colors(darkTheme),
         typography = Typography,
         shapes = Shapes,
         content = content
     )
+}
+
+private fun colors(darkTheme: Boolean) = if (darkTheme) {
+    DarkColorPalette
+} else {
+    LightColorPalette
 }
