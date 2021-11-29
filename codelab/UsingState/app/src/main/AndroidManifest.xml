@@ -36,6 +36,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name="com.codelabs.state.examples.HelloCodelabActivity"
+            android:exported="true"
+            />
+        <activity android:name="com.codelabs.state.examples.HelloCodeLabActivityWithViewModel"
+            android:exported="true"
+            />
     </application>
 
 </manifest>
